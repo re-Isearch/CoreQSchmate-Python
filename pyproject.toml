@@ -1,0 +1,25 @@
+[build-system]
+requires = ["scikit-build-core>=1.0,<2", "nanobind>=3.1,<4"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "coreqschmate"
+version = "0.1.0a1"
+description = "Standalone Python bindings for the Schmate vector subsystem"
+requires-python = ">=3.10"
+readme = "README.md"
+license = "Apache-2.0"
+
+[project.optional-dependencies]
+test = ["pytest>=8", "numpy>=1.24"]
+
+[tool.scikit-build]
+cmake.version = ">=3.24"
+build-dir = "build/{wheel_tag}"
+wheel.packages = ["src/schmate"]
+install.components = ["python"]
+sdist.exclude = ["build", "dist", ".pytest_cache", "models", "demo-indexes"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["model: requires SCHMATE_TEST_MODEL pointing to a supported BERT GGUF"]
